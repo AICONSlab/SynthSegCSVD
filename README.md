@@ -2,12 +2,12 @@
 
 
 * SynthSegCSVD is a CNN-based segmentation tool for segmenting white matter hyperintensities (WMH) on FLAIR MRI and perivascular spaces (PVS) on T1 MRI
-* SynthSegCSVD was developed using patient MRI with varying degrees of cerebrovascular disease (CVSD) burden, and extends and leverages FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data from a generative model conditioned on label maps from full-brain segmentations without PVS labels
+* SynthSegCSVD was developed using patient MRI with varying degrees of cerebral small vessel disease (CSVD) burden, extending and leveraging FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data derived from a generative model conditioned on label maps from full-brain segmentations without PVS labels
 * SynthSegCSVD is distributed as a docker/singularity image
 * If you use SynthSegCSVD in your work please cite:
 
     * SynthSeg: Segmentation of brain MRI scans of any contrast and resolution without retraining. B Billot, DN Greve, O Puonti, A Thielscher, K Van Leemput, B Fischl, AV Dalca, JE Iglesias. Medical Image Analysis, 83, 102789 (2023). 
-    * RORPO: Odyssée Merveille, Hugues Talbot, Laurent Najman, Nicolas Passat. Ranking orientation responses of path operators: Motivations, choices and algorithmics. International Symposium on Mathematical Morphology (ISMM), 2015, Reykjavik, Iceland. pp.633-644, 10.1007/978-3-319-18720-4_53 . hal- 01168732
+    * RORPO (SynthSegCSVD PVS): Odyssée Merveille, Hugues Talbot, Laurent Najman, Nicolas Passat. Ranking orientation responses of path operators: Motivations, choices and algorithmics. International Symposium on Mathematical Morphology (ISMM), 2015, Reykjavik, Iceland. pp.633-644, 10.1007/978-3-319-18720-4_53 . hal- 01168732
     * SynthSegCSVD PVS: [TODO] Coming soon
     * SynthSegCSVD WMH: [TODO] Coming soon
 
@@ -20,7 +20,7 @@
     * FLAIR image 
     * SynthSeg output (version 2.0 with CSF)
 * PVS Segmentation 
-   * T1 image with isotropic voxels (training done at 1mm isotropic)
+   * T1 image
    * SynthSeg output (version 2.0) with CSF
    * WMH segmentation (can be an empty image for populations without WMHs)
    * Optional: T1 + T1xFLAIR RORPO (see section 4 for details)
@@ -31,7 +31,7 @@
 * download SynthSegCSVD.sif from: [TODO] Coming soon
 * define variables (described in the variable setup sections)
 * execute run command (can be copy/pasted without modification once variables are defined)
-* for PVS segmentation, three run commands are provided to generate the optional RORPO input varying in how WMHs are handled (see section 4 for details)
+* for PVS segmentation, three run commands are provided to generate the optional RORPO input, varying in how WMHs are handled (see section 4 for details)
 
 
 <br>
@@ -43,7 +43,7 @@ in_dir=$(pwd)
 out_dir=${in_dir}
 flair_fn=FLAIR.nii.gz
 synth_fn=synthseg.nii.gz
-sif=${HOME}/work/containers/synthseg_plus_rc01/xunet_9XXX_rc01/synthseg_plus_rc01.sif
+sif=[TODO]... coming soon
 out_fn=seg_wmh.nii.gz
 seg_wmh_thr=0.3
 skip_mask_and_bias=false
@@ -102,7 +102,7 @@ in_dir=$(pwd)
 out_dir=${in_dir}
 in_fn=T1.nii.gz
 out_fn=T1_rorpo.nii.gz
-sif=${HOME}/work/containers/synthseg_plus_rc01/xunet_9XXX_rc01/synthseg_plus_rc01.sif
+sif=[TODO]... coming soon
 in_adf="0.025 1 25"
 invert_contrast=1
 rorpo_params="--scaleMin=1 --factor=2 --nbScales=4 --dilationSize=0 --verbose --uint8 --nbCores 8" 
@@ -224,7 +224,7 @@ rorpo_fn=T1_rorpo.nii.gz
 seg_wmh_fn=thr_seg_wmh.nii.gz
 synth_fn=synthseg.nii.gz
 out_pfx=seg
-sif=${HOME}/work/containers/synthseg_plus_rc01/xunet_9XXX_rc01/synthseg_plus_rc01.sif
+sif=[TODO]... coming soon
 cleanup=true
 skip_mask_and_bias=true
 ```
