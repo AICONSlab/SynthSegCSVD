@@ -2,7 +2,7 @@
 
 
 * SynthSegCSVD is a CNN-based segmentation tool for segmenting white matter hyperintensities (WMH) on FLAIR MRI and perivascular spaces (PVS) on T1 MRI
-* SynthSegCSVD was developed using patient MRI with varying degrees of cerebral small vessel disease (CSVD) burden, extending and leveraging FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data derived from a generative model conditioned on label maps from full-brain segmentations without PVS labels
+* SynthSegCSVD was developed using patient MRI with varying degrees of cerebral small vessel disease (CSVD) burden, in combination with FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data derived from a generative model conditioned on label maps from full-brain segmentations without PVS labels
 * SynthSegCSVD is distributed as a docker/singularity image
 * If you use SynthSegCSVD in your work please cite:
 
