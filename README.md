@@ -50,7 +50,7 @@
 >* [optional] : RORPO mask 
  
 
-## **iv) RUNNING SynthSegCSVD**
+## **iv) Running SynthSegCSVD**
 > **Overview**:
 >* define variables -- described in the variable setup sections below
 >* execute singularity run command -- can be copy/pasted without modification once variables are defined
@@ -144,7 +144,7 @@ sudo docker run \
 > * thr_seg_wmh.nii.gz : thresholded binarized WMH segmentation
 
 # **2. Generate RORPO Image**
-* The RORPO filter is included in the SynthSegCSVD container and can be used to extract small tubular structures from MR images and improves the PVS segmentation result in the following section, but requires some user-based choices for the parameters that control filter performance and how/if WMHs are handled (recommendations below)
+* The RORPO filter is included in the SynthSegCSVD container and can be used to extract small tubular structures from MR images to improve the subsequent PVS segmentation result, but requires some user-based choices for the parameters that control filter performance and how/if WMHs are handled (recommendations below)
 * Three run commands are provided varying in how WMHs are handled:
   1. **RORPO + WMH exclusion and WMH recovery**
       * requires T1 + FLAIR + WMH segmentation
