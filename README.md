@@ -1,54 +1,84 @@
 # **SynthSegCSVD**
+## Update : 11/21/2023
+
+**SynthSegCSVD<sub>WMH</sub> :** release candidate now available with full support and regular updates
+
+**SynthSegCSVD<sub>PVS</sub> :** beta version now available with limited support
 
 
-* SynthSegCSVD is a CNN-based segmentation tool for segmenting white matter hyperintensities (WMH) on FLAIR MRI and perivascular spaces (PVS) on T1 MRI
-* SynthSegCSVD was developed using patient MRI with varying degrees of cerebral small vessel disease (CSVD) burden, in combination with FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data derived from a generative model conditioned on label maps from full-brain segmentations without PVS labels
-* SynthSegCSVD is distributed as a docker/singularity image
-* If you use SynthSegCSVD in your work please cite:
+## **i) Overview**
+* **SynthSegCSVD Overview**: SynthSegCSVD is a CNN-based tool for segmentation of white matter hyperintensities (WMH) on FLAIR MRI and perivascular spaces (PVS) on T1 or T2 MRI 
+* **Purpose and Development**: SynthSegCSVD was developed to improve segmentation accuracy for large-scale, heterogenous imaging datasets with varying degrees of cerebrovascular disease (CVSD) burden
+* **Technical Foundation**: SynthSegCSVD was developed using patient MRI and leverages FreeSurfer's SynthSeg tool (https://surfer.nmr.mgh.harvard.edu/fswiki/SynthSeg), which was developed using synthetic data derived from a generative model conditioned on label maps from full-brain segmentations without PVS/WMH labels
+* **Availability**: SynthSegCSVD is distributed as a docker/singularity image
+* **Citation Request**: Users of SynthSegCSVD in their research are kindly requested to cite the following in their work:
 
-    * SynthSeg: Segmentation of brain MRI scans of any contrast and resolution without retraining. B Billot, DN Greve, O Puonti, A Thielscher, K Van Leemput, B Fischl, AV Dalca, JE Iglesias. Medical Image Analysis, 83, 102789 (2023). 
-    * RORPO (SynthSegCSVD PVS): Odyssée Merveille, Hugues Talbot, Laurent Najman, Nicolas Passat. Ranking orientation responses of path operators: Motivations, choices and algorithmics. International Symposium on Mathematical Morphology (ISMM), 2015, Reykjavik, Iceland. pp.633-644, 10.1007/978-3-319-18720-4_53 . hal- 01168732
-    * SynthSegCSVD PVS: [TODO] Coming soon
-    * SynthSegCSVD WMH: [TODO] Coming soon
+    * **SynthSeg:** B Billot, DN Greve, O Puonti, A Thielscher, K Van Leemput, B Fischl, AV Dalca, JE Iglesias.Segmentation of brain MRI scans of any contrast and resolution without retraining. Medical Image Analysis, 83, 102789 (2023). 
+    * **RORPO:** O Merveille, H Talbot, L Najman, N Passat. Ranking orientation responses of path operators: Motivations, choices and algorithmics. International Symposium on Mathematical Morphology (ISMM), 2015, Reykjavik, Iceland. pp.633-644, 10.1007/978-3-319-18720-4_53. hal- 01168732
+    * **SynthSegCSVD:** E Gibson, J Ramirez, LA Woods, R Sommers, N M Ghahjaverestan, CJM Scott, F Gao, AE Lang, C Marras, DP Breen, MC Tartaglia, MA Binns, R B, S Symons, RH Swartz, M Masellis, SE Black, A Moody, ONDRI Investigators, CAIN Investigators, Colleagues from the Foundation Leducq Transatlantic Network of Excellence, Andrew SP Lim, M Goubran. Examining perivascular spaces (PVS) in cerebral small vessel disease (CSVD) using a novel T1-based automated PVS segmentation tool. The International Society of Vascular Behavioural and Cognitive Disorder (VASCOG) Conference, 2023, Gothenburg, Sweden.
+    * **SynthSegCSVD<sub>WMH</sub>:** [TODO] Coming soon
+    * **SynthSegCSVD<sub>PVS</sub>:** [TODO] Coming soon
 
+ <br>
 
 ![Example](synthsegcsvd_example.png)
 
+<br>
+ 
+## **ii) Installation**
+>**Singularity Users**
+>* download synthsegcsvd_rc05.sif from: 
+> https://s3.us-east.cloud-object-storage.appdomain.cloud//cloud-synthsegcsvdrc05/synthsegcsvd_rc05.sif
+>
+>**Docker Users**
+>* download synthsegcsvd_rc05.tar.gz from:
+>  https://s3.us-east.cloud-object-storage.appdomain.cloud//cloud-synthsegcsvdrc05/synthsegcsvd_rc05.tar.gz
+>* install: `sudo docker load -i synthsegcsvd_rc05.tar.gz`
 
-### **Input Images**
-* WMH Segmentation
-    * FLAIR image 
-    * SynthSeg output (version 2.0 with CSF)
-* PVS Segmentation 
-   * T1 image
-   * SynthSeg output (version 2.0) with CSF
-   * WMH segmentation (can be an empty image for populations without WMHs)
-   * Optional: T1 + T1xFLAIR RORPO (see section 4 for details)
+<br>
+ 
+## **iii) Input Requirements** ##
+>**WMH Segmentation:**
+>* \<required\> : FLAIR image
+>* \<required\> : FreeSurfer's SynthSeg output (version 2.0 with CSF)
+>
+>**PVS Segmentation:**
+>* \<required\> : T1 (or T2) image with isotropic voxel dimensions
+>* \<required\> : FreeSurfer's SynthSeg output (version 2.0 with CSF)
+>* \<required\> : WMH segmentation (can be an empty image for populations without WMHs)
+>* [optional] : coregistered FLAIR 
+>* [optional] : RORPO mask 
+ 
 
-
-### **Installation and General Instructions**
-
-* download SynthSegCSVD.sif from: [TODO] Coming soon
-* define variables (described in the variable setup sections)
-* execute run command (can be copy/pasted without modification once variables are defined)
-* for PVS segmentation, three run commands are provided to generate the optional RORPO input, varying in how WMHs are handled (see section 4 for details)
+## **iv) RUNNING SynthSegCSVD**
+> **Overview**:
+>* define variables -- described in the variable setup sections below
+>* execute singularity run command -- can be copy/pasted without modification once variables are defined
+>* for PVS segmentation, three run commands are provided to generate the optional RORPO input which vary in how WMHs are handled -- see section 3 for details
+>
+>**Typical workflow:**
+>  * coregister FLAIR and T1/T2 images (if using T1/T2)
+>  * generate synthseg image (i.e. run: `mri_synthseg --i <FLAIR.nii.gz> --o <synthseg.nii.gz>`) 
+>  * run WMH segmentation (section 1)
+>  * run RORPO (section 2)
+>  * run PVS segmentation (section 3)
 
 
 <br>
+ 
 
-# **2. WMH segmentation**
-> ## **2.1 Variable Setup**
+# **1. SynthSegCSVD<sub>WMH</sub>**
+> ## **1.1 Variable Setup**
 ```bash
 in_dir=$(pwd)
 out_dir=${in_dir}
 flair_fn=FLAIR.nii.gz
 synth_fn=synthseg.nii.gz
-sif=[TODO]... coming soon
+sif=${HOME}/synthsegcsvd_rc05.sif
 out_fn=seg_wmh.nii.gz
-seg_wmh_thr=0.3
-skip_mask_and_bias=false
+seg_wmh_thr=0.35
+skip_mask_and_bias=true
 cleanup=true
-
 ```
 
 where:
@@ -61,7 +91,7 @@ where:
 >
 > **synth_fn** : FreeSurfer synthseg input filename (output from "mri_synthseg")
 >
-> **sif** : path to singulairty file downloaded above
+> **sif** : full path + filename of singulairty file downloaded above
 >
 > **out_fn** : wmh segmentation output filename (with file extension)
 > 
@@ -73,36 +103,66 @@ where:
 
 <br>
 
-## **2.2. Run Command**
-
+> ## **1.2. Run Command (copy/paste)**
 ```bash
+# FOR SINGULARITY USERS:
 singularity run \
   --bind ${in_dir}:/indir,${out_dir}:/outdir  --pwd /  ${sif}  segment_wmh  \
   /indir/${flair_fn} \
   /indir/${synth_fn}  \
   /outdir/${out_fn}  \
   1  \
-  96  \
+  "96,128"  \
   ${seg_wmh_thr} \
+  1 \
   ${skip_mask_and_bias} \
   ${cleanup} 
+
+# OR, FOR DOCKER USERS:
+sudo docker run \
+  -v ${in_dir}:/indir \
+  -v ${out_dir}:/outdir \
+  -w / \
+  synthsegcsvd_rc05 \
+  segment_wmh \
+  /indir/${flair_fn} \
+  /indir/${synth_fn} \
+  /outdir/${out_fn} \
+  1 \
+  "96,128" \
+  ${seg_wmh_thr} \
+  1 \
+  ${skip_mask_and_bias} \
+  ${cleanup}
 ```
 <br>
 
+> ## **1.3. Output**
+
+> * seg_wmh.nii.gz : unthresholded WMH segmentation [0,1]
+> * thr_seg_wmh.nii.gz : thresholded binarized WMH segmentation
+
+# **2. Generate RORPO Image**
+* The RORPO filter is included in the SynthSegCSVD container and can be used to extract small tubular structures from MR images and improves the PVS segmentation result in the following section, but requires some user-based choices for the parameters that control filter performance and how/if WMHs are handled (recommendations below)
+* Three run commands are provided varying in how WMHs are handled:
+  1. **RORPO + WMH exclusion and WMH recovery**
+      * requires T1 + FLAIR + WMH segmentation
+      * excludes non-PVS voxels within WMHs and includes true-PVS voxels within WMHs
+  2. **RORPO + WMH exclustion**
+      * requires T1 + WMH segmentation
+      * excludes non-PVS voxels within WMHs
+  3. **RORPO only**
+      * requires T1
+      * assumes no WMHs present
 
 
-# **3. Generate RORPO Image**
-* The RORPO filter (https://github.com/path-openings/RORPO) can be used to extract small tubular structures from MR images and improves the PVS segmentation result in the following section, but requires some user-based choices for the parameters that control filter performance and how/if WMHs are handled (recommendations below)
-* the input T1 image should be masked and bias corrected
-
-
-> ## **3.1. Variable Setup**
+> ## **2.1. Variable Setup**
 ```bash
 in_dir=$(pwd)
 out_dir=${in_dir}
 in_fn=T1.nii.gz
 out_fn=T1_rorpo.nii.gz
-sif=[TODO]... coming soon
+sif=${HOME}/synthsegcsvd_rc05.sif
 in_adf="0.025 1 25"
 invert_contrast=1
 rorpo_params="--scaleMin=1 --factor=2 --nbScales=4 --dilationSize=0 --verbose --uint8 --nbCores 8" 
@@ -124,11 +184,11 @@ in_flair_rorpo_thresh=22
 >
 > **out_fn** : output image filname
 >
-> **sif** : path to singularity file downloaded above
+> **sif** : full path + filename of singulairty file downloaded above
 >
 > **in_adf** : anisotropic diffusion filter settings for input image
 >
-> **invert_contrast** : (for T1) invert_contrast=1 (or) invert_contrast=0 (for T2)
+> **invert_contrast** : 1 (for T1) or 0 (for T2)
 >
 > **rorpo_params** : RORPO filter settings
 >
@@ -153,17 +213,21 @@ in_flair_rorpo_thresh=22
 "in_adf" controls image smoothing
 *  the first value controls the time step and should not need to be varied
 *  the second value controls the conductance parameter and should be set approximately equal to the voxel size
-*  the third value controls the number of iterations is dependent upon image SNR (we use ~20-25 for T1 images)
+*  the third value controls the number of iterations is dependent upon image characteristics:
+    * e.g. ~20-25 for T1 images, or lower if images are blurry, for example after resampling
+    * e.g. ~1 for T2 images [TODO (still validating)]
 
 "cleanup"
-* can be set to false to troubleshoot or refine any of the settings
+* can be set to false to troubleshoot or refine above settings
 
 
 <br>
 
-> ## **3.2. Run Commands**
-> ### **1. RORPO + WMH exclusion and WMH recovery (recommended approach)**
+> ## **2.2. Run Commands (copy/paste)**
+
+### **i) RORPO + WMH exclusion and WMH recovery (recommended approach)**
 ```bash
+# FOR SINGULARITY USERS:
 singularity run  --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -179,10 +243,29 @@ singularity run  --bind ${in_dir}:/indir,${out_dir}:/outdir \
   /indir/${flair_fn} \
   "${in_flair_adf}" \
   ${in_flair_rorpo_thresh}
-``` 
 
-> ### **2. RORPO + WMH exclusion**
+# OR, FOR DOCKER USERS:
+sudo docker run \
+  -v ${in_dir}:/indir \
+  -v ${out_dir}:/outdir \
+  -w / \
+  synthsegcsvd_rc05 \
+  get_rorpo \
+  /indir/${out_fn} \
+  /indir/${in_fn} \
+  "${in_adf}" \
+  ${invert_contrast} \
+  "${rorpo_params}" \
+  ${in_rorpo_thresh} \
+  ${cleanup} \
+  /indir/${seg_wmh_fn} \
+  /indir/${flair_fn} \
+  "${in_flair_adf}" \
+  ${in_flair_rorpo_thresh}
+``` 
+### **ii) RORPO + WMH exclusion**
 ```bash
+# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -194,11 +277,27 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   "${rorpo_params}" \
   ${in_rorpo_thresh} \
   ${cleanup} \
-  /indir/${wmh_seg}
-``` 
+  /indir/${seg_wmh_fn}
 
-> ### **3. RORPO only**
+  # OR, FOR DOCKER USERS:
+  sudo docker run \
+    -v ${in_dir}:/indir \
+    -v ${out_dir}:/outdir \
+    -w / \
+    synthsegcsvd_rc05 \
+    get_rorpo \
+    /indir/${out_fn} \
+    /indir/${in_fn} \
+    "${in_adf}" \
+    ${invert_contrast} \
+    "${rorpo_params}" \
+    ${in_rorpo_thresh} \
+    ${cleanup} \
+    /indir/${seg_wmh_fn} 
+``` 
+### **iii) RORPO only**
 ```bash
+# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -210,12 +309,27 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   "${rorpo_params}" \
   ${in_rorpo_thresh} \
   ${cleanup} 
+
+# OR, FOR DOCKER USERS:
+sudo docker run \
+  -v ${in_dir}:/indir \
+  -v ${out_dir}:/outdir \
+  -w / \
+  synthsegcsvd_rc05 \
+  get_rorpo \
+  /indir/${out_fn} \
+  /indir/${in_fn} \
+  "${in_adf}" \
+  ${invert_contrast} \
+  "${rorpo_params}" \
+  ${in_rorpo_thresh} \
+  ${cleanup}
 ``` 
 <br>
 
 
-# **4. Generate PVS Segmentation**
-> ## **4.1. Variable Setup**
+# **3. Generate PVS Segmentation**
+> ## **3.1. Variable Setup**
 ```bash
 in_dir=$(pwd)
 out_dir=${in_dir}
@@ -224,7 +338,7 @@ rorpo_fn=T1_rorpo.nii.gz
 seg_wmh_fn=thr_seg_wmh.nii.gz
 synth_fn=synthseg.nii.gz
 out_pfx=seg
-sif=[TODO]... coming soon
+sif=${HOME}/synthsegcsvd_rc05.sif
 cleanup=true
 skip_mask_and_bias=true
 ```
@@ -239,7 +353,7 @@ skip_mask_and_bias=true
 >
 > **rorpo_fn** : RORPO filename (or "" to omit with a reduction PVS segmentation accuracy)
 > 
-> **sif** : path to singularity file downloaded above
+> **sif** : full path + filename of singulairty file downloaded above
 >
 > **seg_wmh_fn** : WMH segmentation filename (or empty image to skip)
 > 
@@ -249,8 +363,9 @@ skip_mask_and_bias=true
 >
 > **cleanup** : true | false (true to remove temporary files, otherwise false)
 
-> ## **4.2. Run Command**
+> ## **3.2. Run Command (copy/paste)**
 ```bash
+# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -263,4 +378,29 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   1 0 \
   ${skip_mask_and_bias} \
   ${cleanup}
+
+# OR, FOR DOCKER USERS:
+sudo docker run \
+  -v ${in_dir}:/indir \
+  -v ${out_dir}:/outdir \
+  -w / \
+  synthsegcsvd_rc05 \
+  segment_pvs \
+  /indir/${t1_fn} \
+  /indir/${synth_fn} \
+  /indir/${rorpo_fn} \
+  /indir/${seg_wmh_fn} \
+  /outdir/${out_pfx} \
+  1 0 \
+  ${skip_mask_and_bias} \
+  ${cleanup}
+
 ```
+
+> ## **3.3. Output**
+>
+> pvs_seg.nii.gz : unthresholded PVS segmentation using T1 and T1-RORPO [0,2]
+> 
+> pvs_seg_no_rorpo.nii.gz : unthreshold PVS segmentation using T1 only [0,1]
+>
+> pvs_seg_with_rorpo.nii.gz : unthreshold PVS segmentation T1-RORPO only [0,1]
