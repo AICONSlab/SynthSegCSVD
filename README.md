@@ -104,8 +104,8 @@ where:
 <br>
 
 > ## **1.2. Run Command (copy/paste)**
+FOR SINGULARITY USERS:
 ```bash
-# FOR SINGULARITY USERS:
 singularity run \
   --bind ${in_dir}:/indir,${out_dir}:/outdir  --pwd /  ${sif}  segment_wmh  \
   /indir/${flair_fn} \
@@ -117,8 +117,9 @@ singularity run \
   1 \
   ${skip_mask_and_bias} \
   ${cleanup} 
-
-# OR, FOR DOCKER USERS:
+```
+FOR DOCKER USERS:
+```bash
 sudo docker run \
   -v ${in_dir}:/indir \
   -v ${out_dir}:/outdir \
@@ -226,8 +227,8 @@ in_flair_rorpo_thresh=22
 > ## **2.2. Run Commands (copy/paste)**
 
 ### **i) RORPO + WMH exclusion and WMH recovery (recommended approach)**
+FOR SINGULARITY USERS:
 ```bash
-# FOR SINGULARITY USERS:
 singularity run  --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -243,8 +244,10 @@ singularity run  --bind ${in_dir}:/indir,${out_dir}:/outdir \
   /indir/${flair_fn} \
   "${in_flair_adf}" \
   ${in_flair_rorpo_thresh}
+```
 
-# OR, FOR DOCKER USERS:
+FOR DOCKER USERS:
+```bash
 sudo docker run \
   -v ${in_dir}:/indir \
   -v ${out_dir}:/outdir \
@@ -264,8 +267,8 @@ sudo docker run \
   ${in_flair_rorpo_thresh}
 ``` 
 ### **ii) RORPO + WMH exclusion**
+FOR SINGULARITY USERS:
 ```bash
-# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -278,8 +281,9 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   ${in_rorpo_thresh} \
   ${cleanup} \
   /indir/${seg_wmh_fn}
-
-  # OR, FOR DOCKER USERS:
+```
+FOR DOCKER USERS:
+```bash
   sudo docker run \
     -v ${in_dir}:/indir \
     -v ${out_dir}:/outdir \
@@ -296,8 +300,8 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
     /indir/${seg_wmh_fn} 
 ``` 
 ### **iii) RORPO only**
+FOR SINGULARITY USERS:
 ```bash
-# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -309,8 +313,9 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   "${rorpo_params}" \
   ${in_rorpo_thresh} \
   ${cleanup} 
-
-# OR, FOR DOCKER USERS:
+```
+FOR DOCKER USERS:
+```bash
 sudo docker run \
   -v ${in_dir}:/indir \
   -v ${out_dir}:/outdir \
@@ -364,8 +369,8 @@ skip_mask_and_bias=true
 > **cleanup** : true | false (true to remove temporary files, otherwise false)
 
 > ## **3.2. Run Command (copy/paste)**
+FOR SINGULARITY USERS:
 ```bash
-# FOR SINGULARITY USERS:
 singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   --pwd / \
   ${sif} \
@@ -378,8 +383,9 @@ singularity run --bind ${in_dir}:/indir,${out_dir}:/outdir \
   1 0 \
   ${skip_mask_and_bias} \
   ${cleanup}
-
-# OR, FOR DOCKER USERS:
+```
+FOR DOCKER USERS:
+```bash
 sudo docker run \
   -v ${in_dir}:/indir \
   -v ${out_dir}:/outdir \
@@ -394,7 +400,6 @@ sudo docker run \
   1 0 \
   ${skip_mask_and_bias} \
   ${cleanup}
-
 ```
 
 > ## **3.3. Output**
