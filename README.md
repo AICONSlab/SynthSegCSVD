@@ -1,4 +1,7 @@
 # **SynthSegCSVD**
+## Known Issues
+* negative-valued voxels introduced by some resampling operations must be set to 0 or severe underestimation can occur; a fix is scheduled for the next update
+
 ## Update : 11/21/2023
 
 **SynthSegCSVD<sub>WMH</sub> :** release candidate now available with full support and regular updates
