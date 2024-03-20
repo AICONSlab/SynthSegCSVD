@@ -31,6 +31,9 @@
 <br>
  
 ## **ii) Installation**
+
+**links will be live 2024/03/26**
+
 >**Singularity Users**
 >* download rc06.sif from: 
 > https://s3.us-east.cloud-object-storage.appdomain.cloud//cloud-synthsegcsvdrc05/rc06.sif
@@ -223,7 +226,7 @@ sudo docker run \
   ${seg_pvs_thr}
 ```
 
-> ## **3.3. Output**
+> ## **2.3. Output**
 >
 > * pvs_seg.nii.gz : unthresholded PVS segmentation [0,1]
 > * thr_pvs_seg.nii.gz : thresholded binarized PVS segmentation {0,1}
